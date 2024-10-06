@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://pvy5v33y3o7s"]
+
+[ext_resource type="Script" path="res://components/task_card/task_card.gd" id="1_pquyo"]
+[ext_resource type="FontFile" uid="uid://bva5v1fktgn04" path="res://themes/Baby Doll.ttf" id="2_rqsac"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1h4w6"]
+size = Vector2(200, 160)
+
+[node name="TaskCard" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 160)
+offset_right = 200.0
+offset_bottom = 160.0
+pivot_offset = Vector2(100, 80)
+script = ExtResource("1_pquyo")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_rqsac")
+placeholder_text = "Conteudo da atividade"
+wrap_mode = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(100, 80)
+shape = SubResource("RectangleShape2D_1h4w6")

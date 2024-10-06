@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Cute Pomodoro"
+run/main_scene="res://screens/main/main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Utils="*res://scripts/autoloads/utils.gd"
+AudioManager="*res://scripts/autoloads/audio_manager.gd"
+SaveManager="*res://scripts/autoloads/save_manager.gd"
+
+[layer_names]
+
+2d_physics/layer_5="CARD"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

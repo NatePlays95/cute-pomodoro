@@ -1,0 +1,34 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://bva5v1fktgn04"
+path="res://.godot/imported/Baby Doll.ttf-97897952d128e58d9d7fc3cd1cc6946f.fontdata"
+
+[deps]
+
+source_file="res://themes/Baby Doll.ttf"
+dest_files=["res://.godot/imported/Baby Doll.ttf-97897952d128e58d9d7fc3cd1cc6946f.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}

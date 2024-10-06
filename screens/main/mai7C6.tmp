@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://da1e41ks1w0rp"]
+
+[ext_resource type="Script" path="res://screens/main/main.gd" id="1_h7jkx"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h7jkx")
+
+[node name="BtnAddTask" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 24.0
+offset_right = 98.0
+offset_bottom = 55.0
+text = "Add Task"
+
+[connection signal="pressed" from="BtnAddTask" to="." method="_on_btn_add_task_pressed"]
