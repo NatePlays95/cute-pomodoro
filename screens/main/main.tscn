@@ -1,14 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://da1e41ks1w0rp"]
+[gd_scene load_steps=7 format=3 uid="uid://da1e41ks1w0rp"]
 
 [ext_resource type="Script" path="res://screens/main/main.gd" id="1_h7jkx"]
 [ext_resource type="Texture2D" uid="uid://g6lut2jlw60h" path="res://icon.svg" id="2_pkjyu"]
 [ext_resource type="PackedScene" uid="uid://dk8rv02j4su6e" path="res://components/timer/pomodoro_timer.tscn" id="3_3dcfl"]
+
+[sub_resource type="Gradient" id="Gradient_s8ic6"]
+offsets = PackedFloat32Array(0, 0.991045)
+colors = PackedColorArray(0.1387, 0.73, 0.73, 1, 0.74, 1, 0.935, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_284i3"]
+gradient = SubResource("Gradient_s8ic6")
+fill_from = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pa61v"]
 size = Vector2(96, 96)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h7jkx")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_284i3")
+expand_mode = 1
 
 [node name="BtnAddTask" type="Button" parent="."]
 offset_left = 40.0
