@@ -47,7 +47,8 @@ func get_cards_as_data() -> Array:
 			var card_data := {
 				"x": card.global_position.x,
 				"y": card.global_position.y,
-				"text": card.get_text()
+				"text": card.get_text(),
+				"color": card.current_color
 			}
 			cards_list.append(card_data)
 	return cards_list
@@ -61,11 +62,13 @@ func set_cards_from_data(cards_list : Array) -> void:
 		var x : float = card_data.get_or_add("x", get_viewport_rect().size.x/2)
 		var y : float = card_data.get_or_add("y", get_viewport_rect().size.y/2)
 		var text : String = card_data.get_or_add("text", "")
+		var color : int = card_data.get_or_add("color", 0)
 		#var color
 		
 		var card_instance = packed_task_card.instantiate()
 		card_instance.global_position = Vector2(x, y)
 		card_instance.set_text(text)
+		card_instance.change_color(color)
 		get_tree().current_scene.add_child(card_instance)
 		card_instance.grabbed.connect(_on_object_grabbed)
 		card_instance.released.connect(_on_object_released)

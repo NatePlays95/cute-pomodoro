@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://pvy5v33y3o7s"]
+[gd_scene load_steps=10 format=3 uid="uid://pvy5v33y3o7s"]
 
 [ext_resource type="Theme" uid="uid://b5xrty7fe1ysy" path="res://themes/task_card.tres" id="1_g4got"]
 [ext_resource type="Script" path="res://components/task_card/task_card.gd" id="1_pquyo"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bva5v1fktgn04" path="res://themes/Baby Doll.ttf" id="2_rqsac"]
 [ext_resource type="Script" path="res://components/shake_detector_component.gd" id="3_ui51o"]
 [ext_resource type="Texture2D" uid="uid://xi6e2cfyt4yn" path="res://images/task_pin.png" id="4_bf7vr"]
+[ext_resource type="Texture2D" uid="uid://c3nebnglfsqeg" path="res://images/task_card_grayscale.png" id="4_tkovi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qv2xn"]
 
@@ -19,6 +20,7 @@ pivot_offset = Vector2(100, 80)
 theme = ExtResource("1_g4got")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qv2xn")
 script = ExtResource("1_pquyo")
+possible_colors = Array[Color]([Color(1, 0.917647, 0.462745, 1), Color(0.737255, 0.94902, 0.776471, 1), Color(0.52549, 0.811765, 0.34902, 1), Color(0.403922, 0.890196, 0.964706, 1), Color(0.662745, 0.501961, 0.854902, 1), Color(1, 0.46, 0.784, 1), Color(0.811765, 0.223529, 0.227451, 1), Color(0.941176, 0.568627, 0.25098, 1)])
 
 [node name="SpriteHolder" type="Node2D" parent="."]
 position = Vector2(83, 91)
@@ -31,7 +33,9 @@ position = Vector2(0, 32.6617)
 texture = ExtResource("2_qx3te")
 
 [node name="CardSprite" type="Sprite2D" parent="SpriteHolder"]
-texture = ExtResource("2_qx3te")
+unique_name_in_owner = true
+modulate = Color(1, 0.917647, 0.462745, 1)
+texture = ExtResource("4_tkovi")
 
 [node name="PinSprite" type="Sprite2D" parent="SpriteHolder"]
 unique_name_in_owner = true

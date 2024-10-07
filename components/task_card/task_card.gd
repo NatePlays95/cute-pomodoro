@@ -1,6 +1,9 @@
 class_name TaskCard
 extends DraggablePanelContainer
 
+@export var possible_colors : Array[Color] = [Color("#ffea76")]
+var current_color := 0
+
 const SOUNDS_GRABBED = [
 	"card_grabbed_1.wav", "card_grabbed_2.wav", "card_grabbed_3.wav"
 ]
@@ -31,12 +34,22 @@ func get_text() -> String:
 func get_area() -> Area2D:
 	return $Area2D
 
+func change_color(color_index:int):
+	current_color = wrapi(color_index, 0, possible_colors.size())
+	%CardSprite.modulate = possible_colors[current_color]
+
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		if not mouse_in:
 			%TextEdit.release_focus()
+		else: 
+			var mouse_event := event as InputEventMouseButton
+			if mouse_event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				change_color(current_color + 1)
+			elif mouse_event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				change_color(current_color - 1)
 
 
 func _process(delta: float) -> void:
