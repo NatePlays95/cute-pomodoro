@@ -1,13 +1,21 @@
-class_name ShakeDetectorComponent
+class_name ShakeDetectorComponentV2
 extends Node2D
 
 signal shake_detected
 
-@export var detect_threshold := 2.0
-@export var forget_threshold := 0.8
-@export var decay_rate := 0.97
 
-@export var debug_label_visible := false
+
+@export var shake_threshold := 5
+## 6 samples per second.
+@export var max_samples := 12
+## Will only record movement if not disabled.
+@export var disabled := false
+
+var stored_positions = []
+var stored_timestamps = []
+
+
+
 
 var shake_successful := false :
 	set(value):
@@ -25,35 +33,39 @@ var debug_label : Label = null
 
 func _ready():
 	visible = false
-	old_global_position = global_position
-	sum = -100
-	
-	debug_label = Label.new()
-	if debug_label_visible: add_child(debug_label)
 
 func _physics_process(delta: float) -> void:
-	if startup_timer > 0: 
-		startup_timer -= delta
-		return # dont trigger the shake on entry
-	
-	var delta_pos = global_position - old_global_position
-	var dot = delta_pos.normalized().dot(old_delta_pos.normalized())
-	
-	if dot < -0.01:
-		sum += abs(dot)
-	sum *= decay_rate
-	
-	debug_label.text = "%.2f" % sum 
-	
-	if sum >= detect_threshold:
-		shake_successful = true
-	elif sum < forget_threshold:
-		shake_successful = false
-	
-	old_delta_pos = global_position - old_global_position
-	old_global_position = global_position 
-	if old_delta_pos.length_squared() < 0.1:
-		reset()
+	if Engine.get_process_frames() % 5 == 0: #sample every 5 physics frames.
+		if not disabled:
+			_update_shake(delta)
+			if _detect_shakes():
+				shake_detected.emit()
+				clear_stored_positions()
+		else:
+			clear_stored_positions()
 
-func reset():
-	sum = 0
+
+func _update_shake(delta: float) -> void:
+	stored_positions.append(global_position)
+	if stored_positions.size() > max_samples:
+		stored_positions.pop_front()
+
+func _detect_shakes() -> bool:
+	if stored_positions.size() < 3: return 0
+	var direction_changes:int = 0
+	for i in range(1, stored_positions.size()-1):
+		var current_direction : Vector2 = stored_positions[i] - stored_positions[i-1]
+		var next_direction : Vector2 = stored_positions[i+1] - stored_positions[i]
+		
+		if current_direction.length_squared() < 0.1: continue
+		if next_direction.length_squared() < 0.1: continue
+		
+		var dot = current_direction.normalized().dot(next_direction.normalized())
+		if dot < 0.2: #around 160°
+			#var time_diff = stored_timestamps[i+1] - stored_timestamps[i]
+			direction_changes += 1
+	#print_debug(direction_changes)
+	return direction_changes >= shake_threshold
+
+func clear_stored_positions():
+	stored_positions = []
