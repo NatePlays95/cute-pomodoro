@@ -13,6 +13,7 @@ func _ready():
 	super._ready()
 	grabbed.connect(_on_grabbed)
 	released.connect(_on_released)
+	$ShakeDetectorComponent.shake_detected.connect(_on_shaken)
 	_on_released(self)
 
 func delete():
@@ -38,3 +39,6 @@ func _on_released(_self) -> void:
 	get_area().process_mode = Node.PROCESS_MODE_INHERIT
 	await get_tree().create_timer(0.1).timeout
 	AudioManager.play_sfx_random(SOUNDS_RELEASED)
+
+func _on_shaken() -> void:
+	set_text("")

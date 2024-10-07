@@ -38,6 +38,7 @@ func _input(event: InputEvent) -> void:
 			if mouse_in:
 				dragging = true
 				drag_offset = (global_position - get_global_mouse_position())*drag_size_mult
+				drag_offset = drag_offset.rotated(deg_to_rad(-rotation_degrees))
 				get_parent().move_child(self, -1)
 				#z_index = +10
 				grabbed.emit(self)
@@ -57,13 +58,19 @@ func _process(delta) -> void:
 		global_position += drag_delta_pos
 		drag_delta_pos *= 1 - friction_after_release
 	
+	#stop things from escaping
+	if not get_viewport_rect().grow(-20).has_point(global_position + pivot_offset.rotated(rotation)):
+		drag_delta_pos = Vector2.ZERO
+	
 	if dragging:
 		scale = scale.move_toward(Vector2.ONE * drag_size_mult, delta*10)
-		rotation_degrees = lerp(rotation_degrees, drag_rotation_degrees, delta*10)
+		if drag_rotation_degrees != 0:
+			rotation_degrees = lerp(rotation_degrees, drag_rotation_degrees, delta*10)
 	else:
 		if mouse_in: scale = scale.move_toward(Vector2.ONE * 1.05, delta)
 		else: scale = scale.move_toward(Vector2.ONE, delta*3)
-		rotation_degrees = lerp(rotation_degrees, 0.0, delta*10)
+		if drag_rotation_degrees != 0:
+			rotation_degrees = lerp(rotation_degrees, 0.0, delta*10)
 
 func _on_mouse_entered() -> void:
 	mouse_in = true

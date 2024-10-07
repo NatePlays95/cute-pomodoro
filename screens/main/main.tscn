@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://da1e41ks1w0rp"]
+[gd_scene load_steps=5 format=3 uid="uid://da1e41ks1w0rp"]
 
 [ext_resource type="Script" path="res://screens/main/main.gd" id="1_h7jkx"]
 [ext_resource type="Texture2D" uid="uid://g6lut2jlw60h" path="res://icon.svg" id="2_pkjyu"]
+[ext_resource type="PackedScene" uid="uid://dk8rv02j4su6e" path="res://components/timer/pomodoro_timer.tscn" id="3_3dcfl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pa61v"]
 size = Vector2(96, 96)
@@ -27,5 +28,12 @@ texture = ExtResource("2_pkjyu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TrashArea"]
 shape = SubResource("RectangleShape2D_pa61v")
+
+[node name="PomodoroTimer" parent="." instance=ExtResource("3_3dcfl")]
+offset_left = 928.0
+offset_top = 448.0
+offset_right = 1108.0
+offset_bottom = 618.0
+friction_after_release = 0.01
 
 [connection signal="pressed" from="BtnAddTask" to="." method="_on_btn_add_task_pressed"]
