@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://b5xrty7fe1ysy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g37gx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0)
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_65i6n"]
+
+[resource]
+TextEdit/colors/background_color = Color(0, 0, 0, 0)
+TextEdit/colors/caret_color = Color(0, 0, 0, 1)
+TextEdit/colors/font_color = Color(0, 0, 0, 1)
+TextEdit/colors/font_placeholder_color = Color(0, 0, 0, 0.454902)
+TextEdit/colors/selection_color = Color(0, 0.603931, 0.227496, 1)
+TextEdit/constants/caret_width = 2
+TextEdit/styles/focus = SubResource("StyleBoxFlat_g37gx")
+TextEdit/styles/normal = SubResource("StyleBoxEmpty_65i6n")

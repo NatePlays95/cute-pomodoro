@@ -1,14 +1,19 @@
 extends Node2D
 
 var packed_task_card = preload("res://components/task_card/task_card.tscn")
-
+var saving_thread : Thread
 
 
 func _ready():
+	saving_thread = Thread.new()
 	%TrashArea.area_entered.connect(_on_area_entered_trash)
 	
 	await get_tree().create_timer(0.5).timeout
 	load_cards()
+
+func _exit_tree() -> void:
+	save_cards()
+	await saving_thread.wait_to_finish()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
@@ -23,12 +28,16 @@ func load_cards() -> void:
 
 
 func save_cards() -> void:
+	#if saving_thread.is_alive(): await saving_thread.wait_to_finish()
 	var cards_list = get_cards_as_data()
+	_actually_save_cards(cards_list)
+	#saving_thread.start(_actually_save_cards.bind(cards_list))
+	#TODO: thread and add popup!
+
+func _actually_save_cards(cards_list) -> void:
 	SaveManager.set_data("task_cards", cards_list)
 	SaveManager.save_data()
 	print_debug("cards saved")
-	#TODO: thread and add popup!
-
 
 func get_cards_as_data() -> Array:
 	var cards_list = []
@@ -79,6 +88,7 @@ func _on_object_released(object:DraggablePanelContainer) -> void:
 func _on_area_entered_trash(area:Area2D) -> void:
 	var object = area.get_parent()
 	if object is TaskCard:
+		AudioManager.play_sfx("crumple.wav")
 		object.delete()
 		var move_tween = create_tween()
 		move_tween.tween_property(

@@ -7,7 +7,13 @@ func _ready():
 	setup_default_data()
 	var _err = load_data()
 	#set_data("records/total_score", 2300)
+	
+	apply_settings()
+	
 	save_data()
+
+func _exit_tree() -> void:
+	save_settings()
 
 func load_data():
 	load_from_json()
@@ -63,14 +69,9 @@ func _load_values_to_data_dict(savegame_dict:Dictionary) -> void:
 	data.merge(savegame_dict, true)
 	#TODO find a way to merge recursively
 
-## Custom Implementation
 
-func setup_default_data() -> void:
-	data["records"] = [
-			{"a":1},{"a":2}
-	]
-	data["collectables"] = {}
-	data["unlockables"] = {}
+
+
 
 func load_from_json() -> Error:
 	var file_contents : String = FileAccess.get_file_as_string("user://save_game.json")
@@ -122,3 +123,31 @@ func save_to_file(encrypted:bool=false) -> Error:
 	
 	file_access.store_string(json_string)
 	return OK
+
+
+
+
+
+## Custom Implementation
+
+func setup_default_data() -> void:
+	data["settings"] = {
+		"window_size": {"x":1280, "y":720},
+		"is_window_maximized": false
+	}
+	data["collectables"] = {}
+	data["unlockables"] = {}
+
+func apply_settings() -> void:
+	var window_size = get_data("settings/window_size")
+	get_window().size = Vector2(window_size["x"], window_size["y"])
+	get_window().move_to_center()
+	var window_maximized = get_data("settings/is_window_maximized")
+	if window_maximized: get_window().mode = Window.MODE_MAXIMIZED
+
+func save_settings() -> void:
+	var window_size = get_window().size
+	set_data("settings/window_size", {"x":window_size.x, "y":window_size.y})
+	var window_maximized = get_window().mode == Window.MODE_MAXIMIZED
+	set_data("settings/is_window_maximized", window_maximized)
+	save_data()

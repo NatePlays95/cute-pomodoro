@@ -11,15 +11,15 @@ size = Vector2(96, 96)
 script = ExtResource("1_h7jkx")
 
 [node name="BtnAddTask" type="Button" parent="."]
-offset_left = 20.0
-offset_top = 24.0
-offset_right = 98.0
-offset_bottom = 55.0
+offset_left = 40.0
+offset_top = 160.0
+offset_right = 118.0
+offset_bottom = 191.0
 text = "Add Task"
 
 [node name="TrashArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(80, 560)
+position = Vector2(80, 80)
 collision_layer = 0
 collision_mask = 16
 
@@ -30,10 +30,10 @@ texture = ExtResource("2_pkjyu")
 shape = SubResource("RectangleShape2D_pa61v")
 
 [node name="PomodoroTimer" parent="." instance=ExtResource("3_3dcfl")]
-offset_left = 928.0
-offset_top = 448.0
-offset_right = 1108.0
-offset_bottom = 618.0
+offset_left = 184.0
+offset_top = 24.0
+offset_right = 364.0
+offset_bottom = 194.0
 friction_after_release = 0.01
 
 [connection signal="pressed" from="BtnAddTask" to="." method="_on_btn_add_task_pressed"]

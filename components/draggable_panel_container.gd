@@ -67,8 +67,9 @@ func _process(delta) -> void:
 		if drag_rotation_degrees != 0:
 			rotation_degrees = lerp(rotation_degrees, drag_rotation_degrees, delta*10)
 	else:
-		if mouse_in: scale = scale.move_toward(Vector2.ONE * 1.05, delta)
-		else: scale = scale.move_toward(Vector2.ONE, delta*3)
+		#if mouse_in: scale = scale.move_toward(Vector2.ONE * 1.05, delta)
+		#else: 
+		scale = scale.move_toward(Vector2.ONE, delta*3)
 		if drag_rotation_degrees != 0:
 			rotation_degrees = lerp(rotation_degrees, 0.0, delta*10)
 

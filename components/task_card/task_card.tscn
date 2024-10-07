@@ -1,47 +1,73 @@
-[gd_scene load_steps=5 format=3 uid="uid://pvy5v33y3o7s"]
+[gd_scene load_steps=9 format=3 uid="uid://pvy5v33y3o7s"]
 
+[ext_resource type="Theme" uid="uid://b5xrty7fe1ysy" path="res://themes/task_card.tres" id="1_g4got"]
 [ext_resource type="Script" path="res://components/task_card/task_card.gd" id="1_pquyo"]
+[ext_resource type="Texture2D" uid="uid://c5w1xn61suw5e" path="res://images/task_card.png" id="2_qx3te"]
 [ext_resource type="FontFile" uid="uid://bva5v1fktgn04" path="res://themes/Baby Doll.ttf" id="2_rqsac"]
 [ext_resource type="Script" path="res://components/shake_detector_component.gd" id="3_ui51o"]
+[ext_resource type="Texture2D" uid="uid://xi6e2cfyt4yn" path="res://images/task_pin.png" id="4_bf7vr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qv2xn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1h4w6"]
-size = Vector2(200, 160)
+size = Vector2(164, 168)
 
 [node name="TaskCard" type="PanelContainer"]
-custom_minimum_size = Vector2(200, 160)
-offset_right = 200.0
-offset_bottom = 160.0
+offset_right = 160.0
+offset_bottom = 168.0
 pivot_offset = Vector2(100, 80)
+theme = ExtResource("1_g4got")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qv2xn")
 script = ExtResource("1_pquyo")
+
+[node name="SpriteHolder" type="Node2D" parent="."]
+position = Vector2(83, 91)
+scale = Vector2(0.244935, 0.244935)
+
+[node name="ShadowSprite" type="Sprite2D" parent="SpriteHolder"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 0.188235)
+position = Vector2(0, 32.6617)
+texture = ExtResource("2_qx3te")
+
+[node name="CardSprite" type="Sprite2D" parent="SpriteHolder"]
+texture = ExtResource("2_qx3te")
+
+[node name="PinSprite" type="Sprite2D" parent="SpriteHolder"]
+unique_name_in_owner = true
+texture = ExtResource("4_bf7vr")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="TextEdit" type="TextEdit" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 2
+theme = ExtResource("1_g4got")
 theme_override_fonts/font = ExtResource("2_rqsac")
-placeholder_text = "Conteudo da atividade"
+placeholder_text = "Task Contents"
 wrap_mode = 1
+scroll_fit_content_height = true
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(100, 80)
+position = Vector2(81, 84)
 shape = SubResource("RectangleShape2D_1h4w6")
 
 [node name="ShakeDetectorComponent" type="Node2D" parent="."]
