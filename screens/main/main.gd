@@ -6,7 +6,7 @@ var saving_thread : Thread
 
 func _ready():
 	saving_thread = Thread.new()
-	%TrashArea.area_entered.connect(_on_area_entered_trash)
+	$Trash.trash_used.connect(save_cards)
 	
 	await get_tree().create_timer(0.5).timeout
 	load_cards()
@@ -81,23 +81,9 @@ func _on_object_grabbed(object:DraggablePanelContainer) -> void:
 	pass
 
 func _on_object_released(object:DraggablePanelContainer) -> void:
-	#for area in %TrashArea.get_overlapping_areas():
-		#if area.get_parent() == object:
-			#var move_tween = create_tween()
-			#move_tween.tween_property(object, "global_position", %TrashArea.global_position, 0.1)
-			#object.delete()
 	pass
 
-func _on_area_entered_trash(area:Area2D) -> void:
-	var object = area.get_parent()
-	if object is TaskCard:
-		AudioManager.play_sfx("crumple.wav")
-		object.delete()
-		var move_tween = create_tween()
-		move_tween.tween_property(
-			object, "global_position", %TrashArea.global_position, 0.19)
-		move_tween.tween_interval(0.5)
-		move_tween.tween_callback(save_cards)
+
 
 
 func _on_btn_add_task_pressed() -> void:

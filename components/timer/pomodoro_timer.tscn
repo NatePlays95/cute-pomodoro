@@ -1,29 +1,34 @@
 [gd_scene load_steps=7 format=3 uid="uid://dk8rv02j4su6e"]
 
 [ext_resource type="Script" path="res://components/timer/pomodoro_timer.gd" id="1_3vsls"]
-[ext_resource type="Texture2D" uid="uid://cls1d4fj82wfu" path="res://images/pomodoro_placeholder.png" id="2_bna5t"]
+[ext_resource type="Texture2D" uid="uid://bk87pc80xvtwb" path="res://images/pomodoro_clock.png" id="2_b57tc"]
 [ext_resource type="Script" path="res://components/shake_detector_component.gd" id="3_b6xdn"]
 [ext_resource type="FontFile" uid="uid://bva5v1fktgn04" path="res://themes/Baby Doll.ttf" id="4_hk5tt"]
+[ext_resource type="AudioStream" uid="uid://ibuqr15k74xy" path="res://audio/sfx/alarm.wav" id="5_8l1e3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4d613"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k84r3"]
-atlas = ExtResource("2_bna5t")
-region = Rect2(559.907, 96.5351, 326.397, 354.643)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbp87"]
 
 [node name="PomodoroTimer" type="PanelContainer"]
 custom_minimum_size = Vector2(180, 170)
 offset_right = 180.0
 offset_bottom = 170.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_4d613")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wbp87")
 script = ExtResource("1_3vsls")
 drag_rotation_degrees = 0.0
 friction_after_release = 0.03
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(89, 67)
-scale = Vector2(0.585123, 0.585123)
-texture = SubResource("AtlasTexture_k84r3")
+[node name="SpriteHolder" type="Node2D" parent="."]
+position = Vector2(94, 94)
+scale = Vector2(0.3, 0.3)
+
+[node name="ShadowSprite" type="Sprite2D" parent="SpriteHolder"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 0.117647)
+texture = ExtResource("2_b57tc")
+
+[node name="TomatoSprite" type="Sprite2D" parent="SpriteHolder"]
+unique_name_in_owner = true
+texture = ExtResource("2_b57tc")
 
 [node name="ShakeDetectorComponent" type="Node2D" parent="."]
 script = ExtResource("3_b6xdn")
@@ -34,7 +39,7 @@ size_flags_horizontal = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_top = 40
+theme_override_constants/margin_top = 55
 
 [node name="TimerLabel" type="RichTextLabel" parent="MarginContainer"]
 unique_name_in_owner = true
@@ -44,3 +49,7 @@ theme_override_fonts/normal_font = ExtResource("4_hk5tt")
 theme_override_font_sizes/normal_font_size = 42
 bbcode_enabled = true
 text = "[center]00:00"
+
+[node name="AlarmSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_8l1e3")
+bus = &"SFX"

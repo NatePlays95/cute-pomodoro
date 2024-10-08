@@ -48,11 +48,27 @@ func _input(event: InputEvent) -> void:
 				#z_index = 0
 				released.emit(self)
 
+func _clamp_position_to_screen(input_position:Vector2) -> Vector2:
+	var view_rect_size = get_viewport_rect().size
+	var camera = get_viewport().get_camera_2d()
+	var camera_center := camera.get_screen_center_position()
+	var camera_scale = camera.zoom
+	var min_x = camera_center.x - (view_rect_size.x/2) / camera_scale.x
+	var max_x = camera_center.x + (view_rect_size.x/2) / camera_scale.x
+	var min_y = camera_center.y - (view_rect_size.y/2) / camera_scale.y
+	var max_y = camera_center.y + (view_rect_size.y/2) / camera_scale.y
+	var return_position = Vector2(
+		clamp(input_position.x, min_x, max_x),
+		clamp(input_position.y, min_y, max_y)
+	)
+	return return_position
 
 func _process(delta) -> void:
 	if dragging:
 		var old_position = global_position
-		global_position = lerp(global_position, get_global_mouse_position() + drag_offset, delta*drag_lerp_speed)
+		var mouse_position = _clamp_position_to_screen(get_global_mouse_position())
+		
+		global_position = lerp(global_position, mouse_position + drag_offset, delta*drag_lerp_speed)
 		drag_delta_pos = global_position - old_position
 	else:
 		global_position += drag_delta_pos

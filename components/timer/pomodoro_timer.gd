@@ -61,23 +61,29 @@ func _process(delta: float) -> void:
 		rotation_degrees += drag_delta_pos.x*0.5
 	if abs(drag_delta_pos.x) <= 3.0:
 		drag_delta_pos *= 0.95
+	
+	%ShadowSprite.global_position = %TomatoSprite.global_position + Vector2(0, 20 if dragging else 5)
+	if dragging:
+		%ShadowSprite.scale = lerp(%ShadowSprite.scale, Vector2.ONE*1.1, delta*10)
+	else:
+		%ShadowSprite.scale = lerp(%ShadowSprite.scale, Vector2.ONE*1.05, delta*3)
 	#print_debug(drag_delta_pos.x)
 
 
 
-
-
-func _on_shake_detected():
+func toggle_timer():
 	AudioManager.play_sfx("magic_ding.wav")
 	if timer_active: 
 		stop()
 	else:
 		if starting_minutes == 0: starting_minutes = 1
 		start(starting_minutes*60) 
-		#start(60*1)
+
+func _on_shake_detected():
+	toggle_timer()
 
 func _on_timer_finished():
 	timer_active = false
 	starting_minutes = 0.0
 	AudioManager.play_sfx("magic_ding.wav")
-	print("YAYYY")
+	$AlarmSound.play()
