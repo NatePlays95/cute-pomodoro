@@ -16,7 +16,10 @@ func _ready():
 	timer = TimerResource.new()
 	timer.negative_mode = true
 	timer.finished.connect(_on_timer_finished)
+	grabbed.connect(_on_grabbed)
+	released.connect(_on_released)
 	$ShakeDetectorComponent.shake_detected.connect(_on_shake_detected)
+	%CheckButton.pressed.connect(_on_check_button_pressed)
 
 
 
@@ -35,11 +38,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func start(time_seconds:float) -> void:
 	timer_active = true
+	%CheckButton.button_pressed = true
 	timer.reset()
 	timer.set_time_from_seconds(time_seconds)
 
 func stop() -> void:
 	timer_active = false
+	%CheckButton.button_pressed = false
 	starting_minutes = ceil(timer.seconds / 300.0) * 5
 
 
@@ -55,10 +60,10 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	if dragging:
-		rotation = lerp_angle(rotation, 0.0, delta*50)
-	else:
-		rotation_degrees += drag_delta_pos.x*0.5
+	#if dragging:
+		#rotation = lerp_angle(rotation, 0.0, delta*50)
+	#else:
+		#rotation_degrees += drag_delta_pos.x*0.5
 	if abs(drag_delta_pos.x) <= 3.0:
 		drag_delta_pos *= 0.95
 	
@@ -70,20 +75,33 @@ func _process(delta: float) -> void:
 	#print_debug(drag_delta_pos.x)
 
 
-
-func toggle_timer():
+func toggle_timer(value):
+	if value == timer_active: return
 	AudioManager.play_sfx("magic_ding.wav")
 	if timer_active: 
 		stop()
+		%CheckButton.button_pressed = false
 	else:
 		if starting_minutes == 0: starting_minutes = 1
 		start(starting_minutes*60) 
+		%CheckButton.button_pressed = true
 
 func _on_shake_detected():
-	toggle_timer()
+	toggle_timer(!timer_active)
+
+func _on_check_button_pressed():
+	toggle_timer(%CheckButton.button_pressed)
 
 func _on_timer_finished():
 	timer_active = false
 	starting_minutes = 0.0
 	AudioManager.play_sfx("magic_ding.wav")
 	$AlarmSound.play()
+	%CheckButton.button_pressed = false
+
+func _on_grabbed(_draggable):
+	AudioManager.play_sfx("pomodoro_grabbed.wav")
+
+func _on_released(_draggable):
+	await get_tree().create_timer(0.1).timeout
+	AudioManager.play_sfx("pomodoro_released.wav")

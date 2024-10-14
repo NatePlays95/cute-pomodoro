@@ -13,7 +13,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1h4w6"]
 size = Vector2(164, 168)
 
-[node name="TaskCard" type="PanelContainer"]
+[node name="TaskCard" type="PanelContainer" groups=["TASK_CARD"]]
 offset_right = 160.0
 offset_bottom = 168.0
 pivot_offset = Vector2(100, 80)

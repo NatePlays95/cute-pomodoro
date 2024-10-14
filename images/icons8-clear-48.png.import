@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q31mbnwbdpkf"
-path="res://.godot/imported/pomodoro-timer-concept-vector-9700182.jpg-1e69a69598eda1a86dfa642e7b4e7495.ctex"
+uid="uid://cqwg5htd33qwi"
+path="res://.godot/imported/icons8-clear-48.png-c19b741e4f8593c9a51c067101584ae7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/pomodoro-timer-concept-vector-9700182.jpg"
-dest_files=["res://.godot/imported/pomodoro-timer-concept-vector-9700182.jpg-1e69a69598eda1a86dfa642e7b4e7495.ctex"]
+source_file="res://images/icons8-clear-48.png"
+dest_files=["res://.godot/imported/icons8-clear-48.png-c19b741e4f8593c9a51c067101584ae7.ctex"]
 
 [params]
 

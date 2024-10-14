@@ -17,6 +17,7 @@ func _ready():
 	grabbed.connect(_on_grabbed)
 	released.connect(_on_released)
 	$ShakeDetectorComponent.shake_detected.connect(_on_shaken)
+	AudioManager.install_ui(%TextEdit)
 	_on_released(self)
 
 func delete():

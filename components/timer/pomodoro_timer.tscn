@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dk8rv02j4su6e"]
+[gd_scene load_steps=9 format=3 uid="uid://dk8rv02j4su6e"]
 
 [ext_resource type="Script" path="res://components/timer/pomodoro_timer.gd" id="1_3vsls"]
 [ext_resource type="Texture2D" uid="uid://bk87pc80xvtwb" path="res://images/pomodoro_clock.png" id="2_b57tc"]
@@ -8,14 +8,16 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wbp87"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2xrgj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xwywr"]
+
 [node name="PomodoroTimer" type="PanelContainer"]
 custom_minimum_size = Vector2(180, 170)
 offset_right = 180.0
 offset_bottom = 170.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wbp87")
 script = ExtResource("1_3vsls")
-drag_rotation_degrees = 0.0
-friction_after_release = 0.03
 
 [node name="SpriteHolder" type="Node2D" parent="."]
 position = Vector2(94, 94)
@@ -37,8 +39,19 @@ script = ExtResource("3_b6xdn")
 layout_mode = 2
 size_flags_horizontal = 4
 
+[node name="CheckButton" type="CheckButton" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -23.0
+offset_top = 88.0
+offset_right = 21.0
+offset_bottom = 112.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2xrgj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xwywr")
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 55
 
 [node name="TimerLabel" type="RichTextLabel" parent="MarginContainer"]
@@ -52,4 +65,5 @@ text = "[center]00:00"
 
 [node name="AlarmSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_8l1e3")
+volume_db = 10.0
 bus = &"SFX"

@@ -7,6 +7,7 @@ var saving_thread : Thread
 func _ready():
 	saving_thread = Thread.new()
 	$Trash.trash_used.connect(save_cards)
+	%Menu.button_pressed.connect(_on_menu_btn_pressed)
 	
 	await get_tree().create_timer(0.5).timeout
 	load_cards()
@@ -84,9 +85,14 @@ func _on_object_released(object:DraggablePanelContainer) -> void:
 	pass
 
 
+func _on_menu_btn_pressed(button_name) -> void:
+	match button_name:
+		"BtnAdd":
+			on_btn_add_task_pressed()
+		"BtnClear":
+			on_btn_clear_pressed()
 
-
-func _on_btn_add_task_pressed() -> void:
+func on_btn_add_task_pressed() -> void:
 	var card = packed_task_card.instantiate()
 	card.global_position = get_viewport_rect().size/2
 	card.global_position += Vector2(randf_range(-1.0,1.0)*100,randf_range(-1.0,1.0)*100)
@@ -94,3 +100,12 @@ func _on_btn_add_task_pressed() -> void:
 	card.grabbed.connect(_on_object_grabbed)
 	card.released.connect(_on_object_released)
 	pass # Replace with function body.
+
+func on_btn_clear_pressed() -> void:
+	var tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	var has_cards := false
+	for card in get_tree().get_nodes_in_group("TASK_CARD"):
+		tween.tween_property(card, "global_position", $Trash.global_position - card.size/2, 0.1)
+		has_cards = true
+	if not has_cards:
+		tween.kill()

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy2l0wjbrrnmv"]
+
+[ext_resource type="Script" path="res://components/miniwindow_button/miniwindow_button.gd" id="1_4hh1k"]
+
+[node name="MiniwindowButton" type="TextureButton"]
+toggle_mode = true
+script = ExtResource("1_4hh1k")

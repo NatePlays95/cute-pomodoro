@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://da1e41ks1w0rp"]
+[gd_scene load_steps=7 format=3 uid="uid://da1e41ks1w0rp"]
 
 [ext_resource type="Script" path="res://screens/main/main.gd" id="1_h7jkx"]
 [ext_resource type="PackedScene" uid="uid://c0i8qy2uwtd34" path="res://components/trash/trash.tscn" id="3_0da02"]
 [ext_resource type="PackedScene" uid="uid://dk8rv02j4su6e" path="res://components/timer/pomodoro_timer.tscn" id="3_3dcfl"]
+[ext_resource type="PackedScene" uid="uid://qui3ggh7blsx" path="res://components/menu/menu.tscn" id="4_b25er"]
 
 [sub_resource type="Gradient" id="Gradient_s8ic6"]
 offsets = PackedFloat32Array(0, 0.991045)
@@ -34,20 +35,42 @@ texture = SubResource("GradientTexture2D_284i3")
 expand_mode = 1
 
 [node name="BtnAddTask" type="Button" parent="."]
+visible = false
 offset_left = 32.0
 offset_top = 248.0
 offset_right = 110.0
 offset_bottom = 279.0
 text = "Add Task"
 
+[node name="Trash" parent="." instance=ExtResource("3_0da02")]
+position = Vector2(88, 112)
+
 [node name="PomodoroTimer" parent="." instance=ExtResource("3_3dcfl")]
-offset_left = 864.0
-offset_top = 416.0
-offset_right = 1044.0
-offset_bottom = 586.0
+offset_left = 8.0
+offset_top = 192.0
+offset_right = 188.0
+offset_bottom = 362.0
 friction_after_release = 0.01
 
-[node name="Trash" parent="." instance=ExtResource("3_0da02")]
-position = Vector2(120, 120)
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+metadata/_edit_lock_ = true
+
+[node name="Menu" parent="Interface/MarginContainer" instance=ExtResource("4_b25er")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 
 [connection signal="pressed" from="BtnAddTask" to="." method="_on_btn_add_task_pressed"]

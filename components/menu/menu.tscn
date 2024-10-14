@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://qui3ggh7blsx"]
+
+[ext_resource type="PackedScene" uid="uid://cy2l0wjbrrnmv" path="res://components/miniwindow_button/miniwindow_button.tscn" id="1_5mxkf"]
+[ext_resource type="Script" path="res://components/menu/menu.gd" id="1_8nb7j"]
+[ext_resource type="StyleBox" uid="uid://byoohavuu1t8c" path="res://components/menu/panelstyle.tres" id="1_36kxj"]
+[ext_resource type="Texture2D" uid="uid://h3foig3kj5um" path="res://images/icons8-add-48.png" id="1_q17t2"]
+[ext_resource type="Texture2D" uid="uid://cqwg5htd33qwi" path="res://images/icons8-clear-48.png" id="2_i15oe"]
+[ext_resource type="Texture2D" uid="uid://b3iy0tpic0lu7" path="res://images/icons8-manual-48.png" id="3_vw6tw"]
+[ext_resource type="Texture2D" uid="uid://8tfb7yy0cp1y" path="res://images/icons8-person-48.png" id="4_x3hyj"]
+
+[node name="PanelContainer" type="PanelContainer"]
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("1_36kxj")
+script = ExtResource("1_8nb7j")
+buttons = [null]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BtnAdd" parent="HBoxContainer" instance=ExtResource("1_5mxkf")]
+layout_mode = 2
+toggle_mode = false
+texture_normal = ExtResource("1_q17t2")
+
+[node name="BtnClear" parent="HBoxContainer" instance=ExtResource("1_5mxkf")]
+layout_mode = 2
+toggle_mode = false
+texture_normal = ExtResource("2_i15oe")
+
+[node name="BtnInstructions" parent="HBoxContainer" node_paths=PackedStringArray("miniwindow") instance=ExtResource("1_5mxkf")]
+layout_mode = 2
+texture_normal = ExtResource("3_vw6tw")
+miniwindow = NodePath("../../Control/Control/Instructions")
+
+[node name="BtnCredits" parent="HBoxContainer" node_paths=PackedStringArray("miniwindow") instance=ExtResource("1_5mxkf")]
+layout_mode = 2
+texture_normal = ExtResource("4_x3hyj")
+miniwindow = NodePath("../../Control/Control/Credits")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = -8.0
+offset_top = 64.0
+offset_right = 224.0
+offset_bottom = 312.0
+mouse_filter = 2
+
+[node name="Instructions" type="PanelContainer" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_36kxj")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Control/Instructions"]
+layout_mode = 2
+text = "Right Click to pick and drag items. 
+
+Click on text to edit.
+
+Mouse Wheel to change state (color, timer).
+
+Shake the clock or press the toggle to start or stop the timer."
+
+[node name="Credits" type="PanelContainer" parent="Control/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_36kxj")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Control/Credits"]
+layout_mode = 2
+text = "Made by Natan Maia
+@natanmaia95
+
+Icons from Icons8
+Made with Godot 4.3"

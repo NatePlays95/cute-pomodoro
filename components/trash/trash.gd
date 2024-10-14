@@ -2,6 +2,16 @@ extends Node2D
 
 signal trash_used
 
+var mouse_in := false
+
+var open := false :
+	set(value):
+		if value and not open:
+			AudioManager.play_sfx("trash_open.wav")
+		if open and not value:
+			AudioManager.play_sfx("trash_close.wav")
+		open = value
+
 func _ready():
 	%TrashArea.area_entered.connect(_on_area_entered_trash)
 	%TrashArea.area_exited.connect(_on_area_exited_trash)
@@ -19,8 +29,15 @@ func _on_area_entered_trash(area:Area2D) -> void:
 
 func _process(delta: float) -> void:
 	var has_no_areas = %TrashArea.get_overlapping_areas().is_empty()
-	%ClosedSprite.visible = has_no_areas
-	%OpenSprite.visible = not has_no_areas
+	mouse_in = get_global_mouse_position().distance_to(global_position) < 100
+	mouse_in = mouse_in && DisplayServer.window_is_focused()
+	open = (not has_no_areas) || mouse_in
+	%OpenSprite.visible = open
+	%ClosedSprite.visible = not open
 
 func _on_area_exited_trash(_area:Area2D) -> void:
+	pass
+
+func _on_mouse_entered() -> void:
+	#print_debug("hey")
 	pass

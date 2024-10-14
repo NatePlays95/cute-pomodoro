@@ -37,15 +37,16 @@ func play_sfx_random(sfx_list:Array):
 
 ## https://www.youtube.com/watch?v=QgBecUl_lFs
 func install_ui(node:Node):
-	for child in node.get_children():
-		if child is Button:
-			child.mouse_entered.connect(_on_ui_button_hovered)
-			child.focus_entered.connect(_on_ui_button_hovered)
-			child.pressed.connect(_on_ui_button_pressed)
-			#child.pressed.connect(play_sfx.bind("button_pressed"))
-		#elif child is LineEdit etc etc
-		
+	if node is Button:
+		node.mouse_entered.connect(_on_ui_button_hovered)
+		node.focus_entered.connect(_on_ui_button_hovered)
+		node.pressed.connect(_on_ui_button_pressed)
+		#child.pressed.connect(play_sfx.bind("button_pressed"))
+	#elif child is LineEdit etc etc
+	if node is TextEdit or node is LineEdit:
+		node.text_changed.connect(_on_ui_textedit_text_changed)
 		# do recursive
+	for child in node.get_children():
 		install_ui(child)
 
 
@@ -99,3 +100,8 @@ func _on_ui_button_pressed():
 	#play_sfx("select.wav")
 	pass
 	# play click sound
+
+func _on_ui_textedit_text_changed():
+	print_debug("a")
+	play_sfx("text_type.wav")
+	pass

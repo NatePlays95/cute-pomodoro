@@ -34,7 +34,7 @@ func get_center_global_position() -> Vector2:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.is_pressed():
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			if mouse_in:
 				dragging = true
 				drag_offset = (global_position - get_global_mouse_position())*drag_size_mult

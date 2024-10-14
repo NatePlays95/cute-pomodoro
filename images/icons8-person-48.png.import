@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cls1d4fj82wfu"
-path="res://.godot/imported/pomodoro_placeholder.png-d1116de76eabe484c4b37f2e7a75005a.ctex"
+uid="uid://8tfb7yy0cp1y"
+path="res://.godot/imported/icons8-person-48.png-409085947413d82ff35acd64d8a032ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/pomodoro_placeholder.png"
-dest_files=["res://.godot/imported/pomodoro_placeholder.png-d1116de76eabe484c4b37f2e7a75005a.ctex"]
+source_file="res://images/icons8-person-48.png"
+dest_files=["res://.godot/imported/icons8-person-48.png-409085947413d82ff35acd64d8a032ad.ctex"]
 
 [params]
 

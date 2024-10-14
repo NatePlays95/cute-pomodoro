@@ -22,6 +22,10 @@ Utils="*res://scripts/autoloads/utils.gd"
 AudioManager="*res://scripts/autoloads/audio_manager.gd"
 SaveManager="*res://scripts/autoloads/save_manager.gd"
 
+[global_group]
+
+TASK_CARD=""
+
 [layer_names]
 
 2d_physics/layer_5="CARD"
