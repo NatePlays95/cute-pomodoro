@@ -133,7 +133,8 @@ func save_to_file(encrypted:bool=false) -> Error:
 func setup_default_data() -> void:
 	data["settings"] = {
 		"window_size": {"x":1280, "y":720},
-		"is_window_maximized": false
+		"is_window_maximized": false,
+		"custom_background": ""
 	}
 	data["collectables"] = {}
 	data["unlockables"] = {}
@@ -144,6 +145,26 @@ func apply_settings() -> void:
 	get_window().move_to_center()
 	var window_maximized = get_data("settings/is_window_maximized")
 	if window_maximized: get_window().mode = Window.MODE_MAXIMIZED
+	apply_custom_background(get_data("settings/custom_background"))
+
+func apply_custom_background(image_path) -> void:
+	var image : Image = null
+	var texture : ImageTexture = null
+	if image_path == null or image_path == "": 
+		printerr("Loading background image from null or empty path \"\". Making background empty.")
+	else:
+		image = Image.load_from_file(image_path)
+	
+	if image == null: 
+		printerr("Couldn't load background image from path: <%s>" % image_path)
+	else:
+		texture = ImageTexture.create_from_image(image)
+		#loaded successfully, so save:
+		set_data("settings/custom_background", image_path if image_path != null else "")
+	
+	var bg_texturerect : TextureRect = get_tree().get_first_node_in_group("CUSTOM_BACKGROUND")
+	if bg_texturerect == null: return
+	bg_texturerect.texture = texture
 
 func save_settings() -> void:
 	var window_size = get_window().size

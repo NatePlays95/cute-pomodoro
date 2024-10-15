@@ -25,6 +25,8 @@ SaveManager="*res://scripts/autoloads/save_manager.gd"
 [global_group]
 
 TASK_CARD=""
+BACKGROUND=""
+CUSTOM_BACKGROUND=""
 
 [layer_names]
 

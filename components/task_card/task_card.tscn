@@ -20,7 +20,7 @@ pivot_offset = Vector2(100, 80)
 theme = ExtResource("1_g4got")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_qv2xn")
 script = ExtResource("1_pquyo")
-possible_colors = Array[Color]([Color(1, 0.917647, 0.462745, 1), Color(0.737255, 0.94902, 0.776471, 1), Color(0.52549, 0.811765, 0.34902, 1), Color(0.403922, 0.890196, 0.964706, 1), Color(0.662745, 0.501961, 0.854902, 1), Color(1, 0.46, 0.784, 1), Color(0.811765, 0.223529, 0.227451, 1), Color(0.941176, 0.568627, 0.25098, 1)])
+possible_colors = Array[Color]([Color(1, 0.917647, 0.462745, 1), Color(0.932498, 0.986858, 0.940884, 1), Color(0.52549, 0.811765, 0.34902, 1), Color(0.403922, 0.890196, 0.964706, 1), Color(0.662745, 0.501961, 0.854902, 1), Color(1, 0.46, 0.784, 1), Color(0.811765, 0.223529, 0.227451, 1), Color(0.941176, 0.568627, 0.25098, 1)])
 
 [node name="SpriteHolder" type="Node2D" parent="."]
 position = Vector2(83, 91)

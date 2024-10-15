@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cecjen1usv8uy"]
+
+[ext_resource type="StyleBox" uid="uid://byoohavuu1t8c" path="res://components/menu/panelstyle.tres" id="1_ygfsc"]
+[ext_resource type="Script" path="res://components/settings_window/settings_window.gd" id="2_3gaol"]
+[ext_resource type="Texture2D" uid="uid://ddxqwbgpbxqbn" path="res://images/icons8-clean-24.png" id="3_0fbnf"]
+
+[node name="Settings" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("1_ygfsc")
+script = ExtResource("2_3gaol")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Background Color"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Custom BG"
+
+[node name="BtnLoadCustomBG" type="Button" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Load"
+alignment = 0
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="BtnClearCustomBG" type="Button" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+icon = ExtResource("3_0fbnf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="VBoxContainer/HBoxContainer2"]
+
+[node name="CustomBGFileDialog" type="FileDialog" parent="VBoxContainer/HBoxContainer2/CanvasLayer"]
+unique_name_in_owner = true
+title = "Open a File"
+initial_position = 1
+size = Vector2i(640, 480)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnLoadCustomBG" to="." method="_on_btn_loadbg_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/BtnClearCustomBG" to="." method="_on_btn_clearbg_pressed"]
+[connection signal="file_selected" from="VBoxContainer/HBoxContainer2/CanvasLayer/CustomBGFileDialog" to="." method="_on_custom_bg_file_dialog_file_selected"]

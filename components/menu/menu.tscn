@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://qui3ggh7blsx"]
+[gd_scene load_steps=10 format=3 uid="uid://qui3ggh7blsx"]
 
 [ext_resource type="PackedScene" uid="uid://cy2l0wjbrrnmv" path="res://components/miniwindow_button/miniwindow_button.tscn" id="1_5mxkf"]
 [ext_resource type="Script" path="res://components/menu/menu.gd" id="1_8nb7j"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cqwg5htd33qwi" path="res://images/icons8-clear-48.png" id="2_i15oe"]
 [ext_resource type="Texture2D" uid="uid://b3iy0tpic0lu7" path="res://images/icons8-manual-48.png" id="3_vw6tw"]
 [ext_resource type="Texture2D" uid="uid://8tfb7yy0cp1y" path="res://images/icons8-person-48.png" id="4_x3hyj"]
+[ext_resource type="Texture2D" uid="uid://bo3s6wrxmqvae" path="res://images/icons8-settings-48.png" id="7_h8c01"]
+[ext_resource type="PackedScene" uid="uid://cecjen1usv8uy" path="res://components/settings_window/settings_window.tscn" id="9_q7kqg"]
 
 [node name="PanelContainer" type="PanelContainer"]
 size_flags_horizontal = 4
@@ -34,6 +36,11 @@ layout_mode = 2
 texture_normal = ExtResource("3_vw6tw")
 miniwindow = NodePath("../../Control/Control/Instructions")
 
+[node name="BtnSettings" parent="HBoxContainer" node_paths=PackedStringArray("miniwindow") instance=ExtResource("1_5mxkf")]
+layout_mode = 2
+texture_normal = ExtResource("7_h8c01")
+miniwindow = NodePath("../../Control/Control/Settings")
+
 [node name="BtnCredits" parent="HBoxContainer" node_paths=PackedStringArray("miniwindow") instance=ExtResource("1_5mxkf")]
 layout_mode = 2
 texture_normal = ExtResource("4_x3hyj")
@@ -47,11 +54,12 @@ mouse_filter = 2
 anchors_preset = 0
 offset_left = -8.0
 offset_top = 64.0
-offset_right = 224.0
+offset_right = 280.0
 offset_bottom = 312.0
 mouse_filter = 2
 
 [node name="Instructions" type="PanelContainer" parent="Control/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,7 +79,18 @@ Mouse Wheel to change state (color, timer).
 
 Shake the clock or press the toggle to start or stop the timer."
 
+[node name="Settings" parent="Control/Control" instance=ExtResource("9_q7kqg")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 288.0
+offset_bottom = 176.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="Credits" type="PanelContainer" parent="Control/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

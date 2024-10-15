@@ -1,17 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://da1e41ks1w0rp"]
+[gd_scene load_steps=5 format=3 uid="uid://da1e41ks1w0rp"]
 
 [ext_resource type="Script" path="res://screens/main/main.gd" id="1_h7jkx"]
 [ext_resource type="PackedScene" uid="uid://c0i8qy2uwtd34" path="res://components/trash/trash.tscn" id="3_0da02"]
 [ext_resource type="PackedScene" uid="uid://dk8rv02j4su6e" path="res://components/timer/pomodoro_timer.tscn" id="3_3dcfl"]
 [ext_resource type="PackedScene" uid="uid://qui3ggh7blsx" path="res://components/menu/menu.tscn" id="4_b25er"]
-
-[sub_resource type="Gradient" id="Gradient_s8ic6"]
-offsets = PackedFloat32Array(0, 0.991045)
-colors = PackedColorArray(0.1387, 0.73, 0.73, 1, 0.74, 1, 0.935, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_284i3"]
-gradient = SubResource("Gradient_s8ic6")
-fill_from = Vector2(1, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h7jkx")
@@ -22,7 +14,7 @@ anchor_mode = 0
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -10
 
-[node name="TextureRect" type="TextureRect" parent="Background"]
+[node name="ColorBackground" type="ColorRect" parent="Background" groups=["BACKGROUND"]]
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,8 +23,21 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = SubResource("GradientTexture2D_284i3")
+color = Color(0.1144, 0.21296, 0.22, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CustomBackground" type="TextureRect" parent="Background" groups=["CUSTOM_BACKGROUND"]]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 expand_mode = 1
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="BtnAddTask" type="Button" parent="."]
 visible = false
@@ -61,10 +66,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 metadata/_edit_lock_ = true
 
 [node name="Menu" parent="Interface/MarginContainer" instance=ExtResource("4_b25er")]

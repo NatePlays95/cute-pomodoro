@@ -102,6 +102,5 @@ func _on_ui_button_pressed():
 	# play click sound
 
 func _on_ui_textedit_text_changed():
-	print_debug("a")
 	play_sfx("text_type.wav")
 	pass
