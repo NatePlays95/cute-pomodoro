@@ -3,6 +3,7 @@ extends Node2D
 var packed_task_card = preload("res://components/task_card/task_card.tscn")
 var saving_thread : Thread
 
+var zoom_factor := 1.0
 
 func _ready():
 	saving_thread = Thread.new()
@@ -20,6 +21,11 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
 		if event.keycode == KEY_ESCAPE:
 			save_cards()
+			get_tree().quit()
+
+func change_zoom(factor:float) -> void:
+	zoom_factor = clampf(factor, 0.4, 2.0)
+	$Camera2D.zoom = Vector2.ONE * zoom_factor
 
 func load_cards() -> void:
 	var loaded_cards = SaveManager.get_data("task_cards")
@@ -83,7 +89,6 @@ func _on_object_grabbed(object:DraggablePanelContainer) -> void:
 
 func _on_object_released(object:DraggablePanelContainer) -> void:
 	pass
-
 
 func _on_menu_btn_pressed(button_name) -> void:
 	match button_name:

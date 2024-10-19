@@ -2,6 +2,7 @@ extends PanelContainer
 
 
 func _ready() -> void:
+	%ZoomSlider.value = SaveManager.get_or_default("settings/zoom", 1.0)
 	_update_custombg_btn_text()
 
 func _on_btn_loadbg_pressed() -> void:
@@ -32,3 +33,8 @@ func _on_btn_clearbg_pressed() -> void:
 	SaveManager.apply_custom_background("")
 	_update_custombg_btn_text()
 	pass # Replace with function body.
+
+
+func _on_zoom_slider_value_changed(value: float) -> void:
+	SaveManager.set_data("settings/zoom", value)
+	SaveManager.apply_zoom(value)

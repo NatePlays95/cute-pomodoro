@@ -25,13 +25,21 @@ func save_data():
 	#save_to_file(true)
 	pass
 
+
+
 ## Please inst_to_dict your values first.
 func set_data(key:String, value) -> void:
 	assert(not value is Object)
 	_set_data(key, value)
 
+func get_or_default(key:String, default):
+	var return_value = _get_data(key)
+	if return_value == null: return default
+	return return_value
+
 func get_data(key:String):
 	return _get_data(key)
+
 
 
 func _set_data(key:String, value, dict=data) -> void:
@@ -69,6 +77,10 @@ func _load_values_to_data_dict(savegame_dict:Dictionary) -> void:
 	data.merge(savegame_dict, true)
 	#TODO find a way to merge recursively
 
+func reset_settings() -> void:
+	data = {}
+	setup_default_data()
+	save_data()
 
 
 
@@ -134,10 +146,19 @@ func setup_default_data() -> void:
 	data["settings"] = {
 		"window_size": {"x":1280, "y":720},
 		"is_window_maximized": false,
-		"custom_background": ""
+		"zoom": 1.0,
+		"custom_background": "",
 	}
 	data["collectables"] = {}
 	data["unlockables"] = {}
+
+
+func save_settings() -> void:
+	var window_size = get_window().size
+	set_data("settings/window_size", {"x":window_size.x, "y":window_size.y})
+	var window_maximized = get_window().mode == Window.MODE_MAXIMIZED
+	set_data("settings/is_window_maximized", window_maximized)
+	save_data()
 
 func apply_settings() -> void:
 	var window_size = get_data("settings/window_size")
@@ -146,6 +167,7 @@ func apply_settings() -> void:
 	var window_maximized = get_data("settings/is_window_maximized")
 	if window_maximized: get_window().mode = Window.MODE_MAXIMIZED
 	apply_custom_background(get_data("settings/custom_background"))
+	apply_zoom(get_or_default("settings/zoom", 1.0))
 
 func apply_custom_background(image_path) -> void:
 	var image : Image = null
@@ -166,9 +188,7 @@ func apply_custom_background(image_path) -> void:
 	if bg_texturerect == null: return
 	bg_texturerect.texture = texture
 
-func save_settings() -> void:
-	var window_size = get_window().size
-	set_data("settings/window_size", {"x":window_size.x, "y":window_size.y})
-	var window_maximized = get_window().mode == Window.MODE_MAXIMIZED
-	set_data("settings/is_window_maximized", window_maximized)
-	save_data()
+func apply_zoom(value) -> void:
+	var camera = get_viewport().get_camera_2d()
+	if camera:
+		camera.zoom = Vector2.ONE * value
