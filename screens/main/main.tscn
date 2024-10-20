@@ -77,4 +77,9 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
+[node name="AutoSaveTimer" type="Timer" parent="."]
+wait_time = 600.0
+autostart = true
+
 [connection signal="pressed" from="BtnAddTask" to="." method="_on_btn_add_task_pressed"]
+[connection signal="timeout" from="AutoSaveTimer" to="." method="save_cards"]

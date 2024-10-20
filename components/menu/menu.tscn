@@ -102,7 +102,8 @@ theme_override_styles/panel = ExtResource("1_36kxj")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/Control/Credits"]
 layout_mode = 2
-text = "Made by Natan Maia
+text = "Cute Pomodoro v1.0.0
+Made by Natan Maia
 @natanmaia95
 
 Icons from Icons8
